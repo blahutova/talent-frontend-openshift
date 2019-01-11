@@ -7,9 +7,11 @@ import favicon from 'serve-favicon';
 
 /* eslint-disable no-console */
 
-const port = 3000;
 const app = express();
 const compiler = webpack(config);
+
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
@@ -23,10 +25,6 @@ app.get('*', function(req, res) {
   res.sendFile(path.join( __dirname, '../src/index.html'));
 });
 
-app.listen(port, function(err) {
-  if (err) {
-    console.log(err);
-  } else {
-    open(`http://localhost:${port}`);
-  }
+app.listen(server_port, server_ip_address, function(err) {
+  console.log( "Listening on " + server_ip_address + ", port " + server_port )
 });
