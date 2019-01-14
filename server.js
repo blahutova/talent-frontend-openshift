@@ -15,8 +15,8 @@ const path = require('path');
 // var config = require('../webpack.config.js');
 var app = express();
 // var compiler = webpack();
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0'
+var server_port = process.env.PORT || 8080;
+var server_ip_address = process.env.IP || '0.0.0.0';
 
 app.use(express.static(path.join(__dirname, 'build')));
 
